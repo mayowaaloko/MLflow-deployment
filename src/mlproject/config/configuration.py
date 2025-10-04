@@ -1,9 +1,7 @@
-from src.mlproject.constants import CONFIG_FILE_PATH, PARAMS_FILE_PATH, SCHEMA_FILE_PATH
+from src.mlproject.constants import *
 from src.mlproject.utils.common import read_yaml, create_directories
-from src.mlproject.entity.config_entity import DataIngestionConfig
+from src.mlproject.entity.config_entity import DataIngestionConfig, DataValidationConfig
 from pathlib import Path
-
-# configuration
 
 
 class ConfigurationManager:
@@ -28,3 +26,17 @@ class ConfigurationManager:
             unzip_dir=Path(config["unzip_dir"]),
         )
         return data_ingestion_config
+
+    def get_data_validation_config(self) -> DataValidationConfig:
+        config = self.config["data_validation"]
+        schema = dict(self.schema["COLUMNS"])
+        create_directories([Path(config["root_dir"])])
+
+        data_validation_config = DataValidationConfig(
+            root_dir=Path(config["root_dir"]),
+            local_data_file=Path(self.config["data_ingestion"]["local_data_file"]),
+            unzip_data_dir=Path(config["unzip_data_dir"]),
+            all_schema=schema,
+            status_file=Path(config["status_file"]),
+        )
+        return data_validation_config
