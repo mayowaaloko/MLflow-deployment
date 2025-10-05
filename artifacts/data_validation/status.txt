@@ -1,1 +1,1 @@
-Data Validation Successful: all columns are validated
+validation_status: True

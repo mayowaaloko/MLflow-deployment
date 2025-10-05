@@ -21,12 +21,12 @@ class DataValidation:
                 if col not in schema_cols:
                     validation_status = False
                     with open(self.config.status_file, "w") as f:
-                        f.write(f"Data Validation Failed: {col} not in schema")
+                        f.write("Validation_status: False")
                     break
             else:
                 validation_status = True
                 with open(self.config.status_file, "w") as f:
-                    f.write("Data Validation Successful: all columns are validated")
+                    f.write("validation_status: True")
 
             return validation_status
 
